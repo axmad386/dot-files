@@ -13,7 +13,8 @@ super + @space
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd
+  pkill -x sxhkd && sxhkd &
+	# pkill -USR1 -x sxhkd
 
 #
 # bspwm hotkeys
@@ -120,3 +121,18 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+XF86MonBrightness{Up,Down}  
+  brightnessctl s 10{+,-}  
+ 
+XF86Audio{Raise,Lower}Volume  
+  pulsemixer --change-volume {+,-}10  
+ 
+XF86AudioMute  
+  pulsemixer  --toggle-mute
+
+# move window to next or prev desktop & focus it
+super + ctrl + { Right,Left }
+    DIR={next.local,prev.local}; \
+    bspc node -d "$DIR" --follow
+
